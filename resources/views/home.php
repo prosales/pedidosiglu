@@ -123,7 +123,7 @@
     <div class="container">
       <div class="py-5 text-center">
         <h2>Solicitar pedido</h2>
-        <p class="lead">Realizar tu pedido nunca fue mas fácil, completa el formulario y te estaremos enviando un correo de confirmación de tu pedido.</p>
+        <!-- <p class="lead">Realizar tu pedido nunca fue mas fácil, completa el formulario y te estaremos enviando un correo de confirmación de tu pedido.</p> -->
       </div>
 
       <div class="row">
