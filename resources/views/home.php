@@ -94,19 +94,31 @@
   </style>
 
   <body class="bg-light">
-  <div id="loader" class="hide">
-      <div class="sk-cube-grid">
-        <div class="sk-cube sk-cube1"></div>
-        <div class="sk-cube sk-cube2"></div>
-        <div class="sk-cube sk-cube3"></div>
-        <div class="sk-cube sk-cube4"></div>
-        <div class="sk-cube sk-cube5"></div>
-        <div class="sk-cube sk-cube6"></div>
-        <div class="sk-cube sk-cube7"></div>
-        <div class="sk-cube sk-cube8"></div>
-        <div class="sk-cube sk-cube9"></div>
-      </div>
-  </div>
+    <div id="loader" class="hide">
+        <div class="sk-cube-grid">
+          <div class="sk-cube sk-cube1"></div>
+          <div class="sk-cube sk-cube2"></div>
+          <div class="sk-cube sk-cube3"></div>
+          <div class="sk-cube sk-cube4"></div>
+          <div class="sk-cube sk-cube5"></div>
+          <div class="sk-cube sk-cube6"></div>
+          <div class="sk-cube sk-cube7"></div>
+          <div class="sk-cube sk-cube8"></div>
+          <div class="sk-cube sk-cube9"></div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal">Bienvenido, <span id="usuario"></span></h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <!-- <a class="p-2 text-dark" href="#">Features</a>
+        <a class="p-2 text-dark" href="#">Enterprise</a>
+        <a class="p-2 text-dark" href="#">Support</a>
+        <a class="p-2 text-dark" href="#">Pricing</a> -->
+      </nav>
+      <button class="btn btn-outline-primary" id="btn-logout">Cerrar sesión</button>
+    </div>
+
     <div class="container">
       <div class="py-5 text-center">
         <h2>Solicitar pedido</h2>
@@ -192,7 +204,7 @@
                 <label for="country">Destino</label>
                 <select class="custom-select d-block w-100" id="destination" required="">
                   <option value="">Selecciona</option>
-                  <option value="Aserradero">Aserradero</option>
+                  <option value="IGLU (El Rancho)">IGLU (El Rancho)</option>
                   <option value="Guatemala">Guatemala</option>
                   <option value="San Pedro Sula">San Pedro Sula</option>
                   <option value="Tegucigalpa">Tegucigalpa</option>
@@ -243,6 +255,19 @@
       // Example starter JavaScript for disabling form submissions if there are invalid fields
       (function() {
         'use strict';
+        
+        if(!localStorage.usuario) {
+          window.location.href = "/";
+        }
+
+        $('#usuario').text(localStorage.usuario);
+
+        $('#btn-logout').on('click', function(e){
+          e.preventDefault();
+
+          localStorage.usuario = "";
+          window.location.href = "/";
+        });
 
         window.addEventListener('load', function() {
           // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -316,10 +341,11 @@
                 }
                 else {
                   alert(data.message);
+                  $('#loader').addClass('hide');
                 }
               },
               error: function(){
-                
+                $('#loader').addClass('hide');
               }
             });
           

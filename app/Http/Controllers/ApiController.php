@@ -21,7 +21,6 @@ class ApiController extends Controller
     {
         try
         {
-            
             $registro = Orders::create([
                 'deliver_date' => $request->input('deliver_date'),
                 'destination' => $request->input('destination'),
@@ -46,16 +45,61 @@ class ApiController extends Controller
                 'total' => $registro->total,
             ];
             
-            Mail::send('mail', $data, function($msg) { 
-                //$msg->to(['prosales@saprosa.com', 'wlevy@saprosa.com']); 
-                $msg->to(['wlevy@saprosa.com']); 
+            Mail::send('mail', $data, function($msg) use($request) { 
+                $msg->to(explode(',',env('CORREOS'))); 
+                //$msg->to(['wlevy@saprosa.com', $request->input('email')]); 
                 $msg->from(['prosales@researchmobile.co']); 
             });
+            // DESCOMENTAR CUANDO SE TENGA QUE ENVIAR COPIA AL SOLICITANTE
+            // Mail::send('mail', $data, function($msg) use($request) { 
+            //     $msg->to([$request->input('email')]); 
+            //     //$msg->to(['wlevy@saprosa.com', $request->input('email')]); 
+            //     $msg->from(['prosales@researchmobile.co']); 
+            // });
             
 
             $this->records = $registro;
             $this->message = "Tu pedido a sido creado exitosamente.";
             $this->result = true;
+        }
+        catch (\Exception $e)
+        {
+            $this->statusCode   =   200;
+            $this->message      =   env('APP_DEBUG')?$e->getMessage():'Ocurrio un problema con la solicitud.';
+            $this->result       =   false;
+        }
+        finally
+        {
+            $response =
+            [
+                'message'   =>  $this->message,
+                'result'    =>  $this->result,
+                'records'   =>  $this->records
+            ];
+
+            return response()->json($response, $this->statusCode);
+        }
+    }
+
+    public function login(Request $request)
+    {
+        try
+        {
+            if($request->input('email') == env('LOGIN_USER')) {
+                if($request->input('password') == env('LOGIN_PASSWORD')) {
+                    $this->records = $request->all();
+                    $this->message = "Bienvenido.";
+                    $this->result = true;
+                }
+                else {
+                    $this->message = "Contraseña incorrecta.";
+                    $this->result = false;
+                }
+            }
+            else {
+                $this->message = "Usuario ingresado no existe.";
+                $this->result = false;
+            }
         }
         catch (\Exception $e)
         {

@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Mail;
 
 $router->get('/', function () use ($router) {
     //return $router->app->version();
-    return view('home');
+    return view('login');
 });
-$router->get('/email', function () use ($router) {
-    return view('mail');
+$router->get('/home', function () use ($router) {
+    return view('home');
 });
 
 $router->post('/api/create', 'ApiController@create');
+$router->post('/api/login', 'ApiController@login');
 $router->get('/sendmail', function(){
     Mail::send('mail', [],function($msg) { 
         $msg->to(['prosales@saprosa.com']); 
