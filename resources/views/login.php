@@ -64,9 +64,9 @@
       <img class="mb-4" src="fasenco.png" alt="" width="200" height="100">
       <h1 class="h3 mb-3 font-weight-normal">Ingresa tus datos</h1>
       <label for="inputEmail" class="sr-only">Correo electrónico</label>
-      <input type="email" id="email" class="form-control" placeholder="Email address" required="" autofocus="" value="jmedina@camasfacenco.net">
+      <input type="email" id="email" class="form-control" placeholder="Email address" required="" autofocus="" >
       <label for="inputPassword" class="sr-only">Contraseña</label>
-      <input type="password" id="password" class="form-control" placeholder="Password" required="" value="medina">
+      <input type="password" id="password" class="form-control" placeholder="Password" required="" >
       <div class="checkbox mb-3">
         <label>
           <!-- <input type="checkbox" value="remember-me"> Remember me -->
