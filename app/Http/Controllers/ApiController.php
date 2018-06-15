@@ -48,7 +48,7 @@ class ApiController extends Controller
             
             Mail::send('mail', $data, function($msg) { 
                 //$msg->to(['prosales@saprosa.com', 'wlevy@saprosa.com']); 
-                $msg->to(['prosales@saprosa.com']); 
+                $msg->to(['wlevy@saprosa.com']); 
                 $msg->from(['prosales@researchmobile.co']); 
             });
             
